@@ -82,7 +82,8 @@ textarea {
     <div class="controls">  
         <select id="sourceLang">  
             <option value="bnk">Benakasemmemii</option>  
-            <option value="en" selected>English</option>  
+            <option value="en" selected>English</option> 
+            <option value="es">Spanish (Google API)</option>
             <option value="hi">Hindi</option>
             <option value="ar">Arabic (Google API)</option>
             <option value="fr">French (Google API)</option>
@@ -126,9 +127,9 @@ async function loadLanguagePair(source, target) {
     const base = `data/${key}`;
 
     const [words, phrases, ordering] = await Promise.all([
-        fetch(`${base}/words.json`).then(r => r.json()),
-        fetch(`${base}/phrases.json`).then(r => r.json()),
-        fetch(`${base}/ordering.json`).then(r => r.json())
+        fetch(`https://arthapuurna.github.io/muutattakai/data/en_bnk/words.json`).then(r => r.json()),
+        fetch(`https://arthapuurna.github.io/muutattakai/data/en_bnk/phrases.json`).then(r => r.json()),
+        fetch(`https://arthapuurna.github.io/muutattakai/data/en_bnk/ordering.json`).then(r => r.json())
     ]);
 
     const data = {
@@ -158,7 +159,7 @@ async function runTranslation() {
     const source = sourceLang.value;
     const target = targetLang.value;
 
-    if (source === "pl" || target === "pl") {
+    if (source === "es" || target === "es") {
         outputText.value = "Google API – ita demo kitu-de non-kriyaapun.";
         return;
     }
