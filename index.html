@@ -127,9 +127,9 @@ async function loadLanguagePair(source, target) {
     const base = `data/${key}`;
 
     const [words, phrases, ordering] = await Promise.all([
-        fetch(`https://arthapuurna.github.io/muutattakai/data/en_bnk/words.json`).then(r => r.json()),
-        fetch(`https://arthapuurna.github.io/muutattakai/data/en_bnk/phrases.json`).then(r => r.json()),
-        fetch(`https://arthapuurna.github.io/muutattakai/data/en_bnk/ordering.json`).then(r => r.json())
+        fetch(`https://arthapuurna.github.io/molmuutattakai/data/en_bnk/words.json`).then(r => r.json()),
+        fetch(`https://arthapuurna.github.io/molmuutattakai/data/en_bnk/phrases.json`).then(r => r.json()),
+        fetch(`https://arthapuurna.github.io/molmuutattakai/data/en_bnk/ordering.json`).then(r => r.json())
     ]);
 
     const data = {
