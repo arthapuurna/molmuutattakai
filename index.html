@@ -174,9 +174,9 @@ outputText.value = internalBenTranslate(text, target, source, data);
 
 
     // ===== STANDARD EN → BNK =====
-    if (!(source === "en" && target === "bnk")) return text;
 
-function internalBenTranslate(text, target, source, data) {
+    function internalBenTranslate(text, target, source, data) {
+    if (!(source === "en" && target === "bnk")) return text;
     if (!data) return text;
   }
     const sentenceParts = text.match(/[^.!?]+[.!?]?/g) || [text];
