@@ -173,7 +173,12 @@ async function runTranslation() {
     const source = sourceLang.value;
     const target = targetLang.value;
 
-    if (source === "es" || target === "es") {
+    if (source === "es" || target === "bnk") {
+        outputText.value = "Google API – ita demo kitu-de non-kriyaapun.";
+        return;
+    }
+
+        if (source === "es" || target === "bnk") {
         outputText.value = "Google API – ita demo kitu-de non-kriyaapun.";
         return;
     }
