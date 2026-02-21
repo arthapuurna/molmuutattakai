@@ -190,15 +190,17 @@ outputText.value = internalBenTranslate(text, target, source, data);
 
     // ===== STANDARD EN → BNK =====
 
-function internalBenTranslate(text, target, source, data) {  
-    if (!(source === "en" && target === "bnk")) return text;  
-    if (!data) return text;  
-  
-    const sentenceParts = text.match(/[^.!?]+[.!?]?/g) || [text];  
-    let translatedText = "";  
-  
-    sentenceParts.forEach(sentence => {  
-        sentence = sentence.trim();  
+function internalBenTranslate(text, target, source, data) {
+    console.log("internalBenTranslate called", { text, target, source, data });
+
+    if (!(source === "en" && target === "bnk")) return text;
+    if (!data) return text;
+
+    const sentenceParts = text.match(/[^.!?]+[.!?]?/g) || [text];
+    let translatedText = "";
+
+    sentenceParts.forEach(sentence => {
+        console.log("Sentence part:", sentence);
         if (!sentence) return;  
   
         const punct = sentence.match(/[.!?]$/);  
