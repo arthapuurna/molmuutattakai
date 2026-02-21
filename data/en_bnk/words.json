@@ -1,4 +1,4 @@
-{
+export const words {
 "all": "kul",
 "a": "on{{det}}",
 "am": "thaare{{verb}}",
@@ -202,4 +202,4 @@
 "yellow": "piila{{adj}}",
 "you": "munthaa{{subj}}", 
 "your": "munthaa-no{{poss}}"  
-    }
+};
