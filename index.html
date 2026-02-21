@@ -178,9 +178,9 @@ async function runTranslation() {
         return;
     }
 
-        if (source === "es" || target === "bnk") {
-        outputText.value = "Google API – ita demo kitu-de non-kriyaapun.";
-        return;
+    if (source === "bnk" || target === "es") {
+    outputText.value = "Google API – ita demo kitu-de non-kriyaapun.";
+    return;
     }
 
     const data = await loadLanguagePair(source, target);
