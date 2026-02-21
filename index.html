@@ -173,15 +173,11 @@ async function runTranslation() {
     const source = sourceLang.value;
     const target = targetLang.value;
 
-    if (source === "es" || target === "bnk") {
+    if (source === "es" || target === "es") {
         outputText.value = "Google API – ita demo kitu-de non-kriyaapun.";
         return;
     }
 
-    if (source === "bnk" || target === "es") {
-    outputText.value = "Google API – ita demo kitu-de non-kriyaapun.";
-    return;
-    }
 
     const data = await loadLanguagePair(source, target);
 outputText.value = internalBenTranslate(text, target, source, data);
