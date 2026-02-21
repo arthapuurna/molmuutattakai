@@ -74,7 +74,7 @@ textarea {
     margin-bottom: 1rem;
     font-weight: bold;
 ">
-    Beta Version – Currently only English → Benakasemmemii is available.<br>
+    Beta Version – Currently only English/Hindi/Japanese → Benakasemmemii is available.<br>
     Other languages will be unlocked in the coming months. Stay tuned!
 </div>
 
@@ -121,11 +121,13 @@ textarea {
 
 
 
-import { words } from './data/en_bnk/words.js';
-import { phrases } from './data/en_bnk/phrases.js';
-import { orderingMap } from './data/en_bnk/ordering.js';
+import { words as enWords, phrases as enPhrases, orderingMap as enOrdering } from './data/en_bnk/regex.js';
+import { words as jpWords, phrases as jpPhrases, orderingMap as jpOrdering } from './data/jp_bnk/regex.js';
+import { words as hiWords, phrases as hiPhrases, orderingMap as hiOrdering } from './data/hi_bnk/regex.js';
 
-const data_en_bnk = { words, phrases, orderingMap };
+const data_en_bnk = { words: enWords, phrases: enPhrases, orderingMap: enOrdering };
+const data_jp_bnk = { words: jpWords, phrases: jpPhrases, orderingMap: jpOrdering };
+const data_hi_bnk = { words: hiWords, phrases: hiPhrases, orderingMap: hiOrdering };
 
 function loadLanguagePair(source, target) {
     source = source.toLowerCase();
