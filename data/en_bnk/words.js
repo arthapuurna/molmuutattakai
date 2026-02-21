@@ -1,4 +1,4 @@
-export const words {
+export const words = {
 "all": "kul",
 "a": "on{{det}}",
 "am": "thaare{{verb}}",
