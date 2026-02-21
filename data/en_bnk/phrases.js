@@ -1,4 +1,4 @@
-export const phrases {
+export const phrases = {
 "am not": "na{{negation}} thaare{{verb}}",
 "are not": "na{{negation}} thaare{{verb}}",
 "do not": "na{{negation}}",
