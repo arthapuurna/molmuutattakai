@@ -203,11 +203,23 @@ outputText.value = internalBenTranslate(text, target, source, data);
 ========================================================= */
 
 
-    // ===== STANDARD EN → BNK =====
 
 function internalBenTranslate(text, target, source, data) {
     if (!data || !data.words) return text;
 
+    // Japanii / Hindii – onhii regex kitu bekartadare
+    if(source === "ja" || source === "hi") {
+        let translated = text;
+        Object.entries(data.words).forEach(([pattern, trg]) => {
+            const regexStr = pattern.endsWith("/g") ? pattern.slice(0,-2) : pattern;
+            const regex = new RegExp(regexStr, "g");
+            translated = translated.replace(regex, trg);
+        });
+        return translated;
+    }
+
+    // ===== STANDARD EN → BNK =====
+    
     const sentenceParts = text.match(/[^.!?]+[.!?]?/g) || [text];
     let translatedText = "";
 
