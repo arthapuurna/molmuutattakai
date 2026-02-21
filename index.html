@@ -142,10 +142,18 @@ window.runTranslation = function() {
   const source = document.getElementById("sourceLang").value.toLowerCase();
   const target = document.getElementById("targetLang").value.toLowerCase();
 
-  if(source !== "en" || target !== "bnk"){
-    document.getElementById("outputText").value="Only English → Benakasemmemii is available.";
+  const allowedPairs = [
+    { source: "en", target: "bnk" },
+    { source: "hi", target: "bnk" },
+    { source: "ja", target: "bnk" }
+];
+
+const isAllowed = allowedPairs.some(pair => pair.source === source && pair.target === target);
+
+if(!isAllowed){
+    document.getElementById("outputText").value = "Only English/Hindi/Japanese → Benakasemmemii is available.";
     return;
-  }
+}
 
   const data = loadLanguagePair(source,target);
   document.getElementById("outputText").value = internalBenTranslate(text,target,source,data);
