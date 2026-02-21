@@ -178,7 +178,7 @@ async function runTranslation() {
         return;
     }
 
-    const data = await loadLanguagePair(source, target);
+    const data = loadLanguagePair(source, target);
 outputText.value = internalBenTranslate(text, target, source, data);
  }
 
@@ -186,53 +186,47 @@ outputText.value = internalBenTranslate(text, target, source, data);
    MOLMUUTATTAKIITUGATTAKAI
 ========================================================= */
 
-function internalBenTranslate(text, target, source) {
 
     // ===== STANDARD EN → BNK =====
-    if (!(source === "en" && target === "bnk")) return text;
 
 function internalBenTranslate(text, target, source, data) {
-    if (!data) return text;
-  }
+    if (!data || !data.words) return text;
+
     const sentenceParts = text.match(/[^.!?]+[.!?]?/g) || [text];
     let translatedText = "";
 
-sentenceParts.forEach(sentence => {
-    sentence = sentence.trim();
-    if (!sentence) return;
+    sentenceParts.forEach(sentence => {
+        sentence = sentence.trim();
+        if(!sentence) return;
 
-    const punct = sentence.match(/[.!?]$/);
-    const endPunct = punct ? punct[0] : "";
-    if (endPunct) sentence = sentence.slice(0, -1);
+        const punct = sentence.match(/[.!?]$/);
+        const endPunct = punct ? punct[0] : "";
+        if(endPunct) sentence = sentence.slice(0, -1);
 
-    // === WAAKYAS ===
-    Object.entries(data.phrases || {}).forEach(([src, trg]) => {
-        const r = new RegExp("\\b" + src + "\\b", "gi");
-        sentence = sentence.replace(r, trg);
+        // Replace phrases
+        Object.entries(data.phrases || {}).forEach(([src,trg])=>{
+            const r = new RegExp("\\b"+src+"\\b","gi");
+            sentence = sentence.replace(r,trg);
+        });
+
+        // Translate words
+        let tokens = sentence.split(/\s+/).map(token => {
+            const m = token.match(/^([("']*)([a-zA-Z]+)([)"',;:]*)$/);
+            if(!m) return token;
+            const [, pre, wordRaw, post] = m;
+            const word = wordRaw.toLowerCase();
+            const tr = data.words[word] || word;
+            return pre + tr + post;
+        });
+
+        // Apply ordering
+        tokens = applyOrderingMap(tokens, data.orderingMap);
+        tokens = tokens.map(t=>t.replace(/\{\{[^}]+\}\}/g,""));
+
+        translatedText += capitalize(tokens.join(" ")) + (endPunct||" ") + " ";
     });
 
-    // === TOUKENIISAAYOUNI ===
-let tokens = sentence.split(/\s+/).map(token => {
-    const m = token.match(/^([("']*)([a-zA-Z]+)([)"',;:]*)$/);
-    if (!m) return token;
-
-    const [, pre, wordRaw, post] = m;
-    const word = wordRaw.toLowerCase();
-    const tr = data.words[word] || word;
-
-    return pre + tr + post; // ❗ Kunkun {{tags}} kitu-ong na hapure
-});
-
-    // ordering
-    tokens = applyOrderingMap(tokens, data.orderingMap);
-    
-tokens = tokens.map(t => t.replace(/\{\{[^}]+\}\}/g, ""));
-
-    translatedText += capitalize(tokens.join(" ")) + (endPunct || " ") + " ";
-});
-
-// tuku-de daddii aakaashas-ong hapu
-return translatedText.trim();
+    return translatedText.trim();
 }
 
 /* =========================================================
