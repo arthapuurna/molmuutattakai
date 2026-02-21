@@ -129,6 +129,8 @@ const data_en_bnk = { words, phrases, orderingMap };
 
 function loadLanguagePair(source, target) {
   if(source === "en" && target === "bnk") return data_en_bnk;
+  if(source === "ja" && target === "bnk") return data_jp_bnk;
+  if(source === "hi" && target === "bnk") return data_hi_bnk;
   return { words: {}, phrases: {}, orderingMap: {} };
 }
 
