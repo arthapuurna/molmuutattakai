@@ -128,14 +128,15 @@ import { orderingMap } from './data/en_bnk/ordering.js';
 const data_en_bnk = { words, phrases, orderingMap };
 
 function loadLanguagePair(source, target) {
-  if(source === "en" && target === "bnk") return data_en_bnk;
-  return { words: {}, phrases: {}, orderingMap: {} };
-}
+    source = source.toLowerCase();
+    target = target.toLowerCase();
 
-function loadLanguagePair(source, target) {
-  if(source === "ja" && target === "bnk") return data_jp_bnk;
-  if(source === "hi" && target === "bnk") return data_hi_bnk;
-  return { regex: {} };
+    if(source === "en" && target === "bnk") return data_en_bnk;
+    if(source === "ja" && target === "bnk") return data_jp_bnk;
+    if(source === "hi" && target === "bnk") return data_hi_bnk;
+
+    // anya bhaasaas-ke, gaal tekidu tirumdii thaare
+    return { words: {}, phrases: {}, orderingMap: {} };
 }
 
 window.runTranslation = function() {
