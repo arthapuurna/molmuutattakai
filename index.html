@@ -188,58 +188,71 @@ outputText.value = internalBenTranslate(text, target, source, data);
 ========================================================= */
 
 
-    // ===== STANDARD EN → BNK =====
-
+// ===== STANDARD EN → BNK =====
 function internalBenTranslate(text, target, source, data) {
-    console.log("internalBenTranslate called", { text, target, source, data });
+    console.log("internalBenTranslate called", { text, target, source });
 
+    // Onhii EN → BNK kitu-ong molmuutattada thaare
     if (!(source === "en" && target === "bnk")) return text;
-    if (!data) return text;
+    if (!data) {
+        console.warn("No translation data provided!");
+        return text;
+    }
 
     const sentenceParts = text.match(/[^.!?]+[.!?]?/g) || [text];
     let translatedText = "";
 
     sentenceParts.forEach(sentence => {
-        console.log("Sentence part:", sentence);
-        if (!sentence) return;  
-  
-        const punct = sentence.match(/[.!?]$/);  
-        const endPunct = punct ? punct[0] : "";  
-        if (endPunct) sentence = sentence.slice(0, -1);  
-  
-        // WAAKYAS-NO LAAKII-DAAKII  
-        Object.entries(data.phrases || {}).forEach(([src, trg]) => {  
-            const r = new RegExp("\\b" + src + "\\b", "gi");  
-            sentence = sentence.replace(r, trg);  
-        });  
-  
-        // COLS-NO LAAKII-DAAKII  
-        let tokens = sentence.split(/\s+/).map(token => {  
-            const m = token.match(/^([("']*)([a-zA-Z]+)([)"',;:]*)$/);  
-            if (!m) return token;  
-  
-            const [, pre, wordRaw, post] = m;  
-            const word = wordRaw.toLowerCase();  
-            const tr = data.words[word] || word;  
+        sentence = sentence.trim();
+        if (!sentence) return;
 
-            if console.log(`Translating "${word}" → "${tr}"`);
-    } else {
-        console.log(`No translation for "${word}"`);
-    }
-  
-            return pre + tr + post;  
-        });  
-  
-        // TETEN  
-        tokens = applyOrderingMap(tokens, data.orderingMap);  
-        tokens = tokens.map(t => t.replace(/\{\{[^}]+\}\}/g, ""));  
-  
-        translatedText += capitalize(tokens.join(" ")) + (endPunct || " ") + " ";  
-    });  
-  
-    return translatedText.trim();  
-}  
+        const punctMatch = sentence.match(/[.!?]$/);
+        const endPunct = punctMatch ? punctMatch[0] : "";
+        if (endPunct) sentence = sentence.slice(0, -1);
 
+        // 1️⃣ Waakyas-no molmuutattakii
+        Object.entries(data.phrases || {}).forEach(([src, trg]) => {
+            const r = new RegExp("\\b" + src + "\\b", "gi");
+            sentence = sentence.replace(r, trg);
+        });
+
+        // 2️⃣ Onbul cols-no molmuutattakii
+        let tokens = sentence.split(/\s+/).map(token => {
+            const m = token.match(/^([("']*)([a-zA-Z]+)([)"',;:]*)$/);
+            if (!m) return token;
+
+            const [, pre, wordRaw, post] = m;
+            const word = wordRaw.toLowerCase();
+            const tr = data.words[word] || word;
+
+            // Logowanie dla debugowania
+            if (data.words[word]) {
+                console.log(`Translating "${word}" → "${tr}"`);
+            } else {
+                console.log(`No translation for "${word}"`);
+            }
+
+            return pre + tr + post;
+        });
+
+        // 3️⃣ Tetendekhu-no bekarkii
+        tokens = applyOrderingMap(tokens, data.orderingMap);
+
+        // 4️⃣ Tagus-no hapukii
+        tokens = tokens.map(t => t.replace(/\{\{[^}]+\}\}/g, ""));
+
+        translatedText += capitalize(tokens.join(" ")) + (endPunct || " ") + " ";
+    });
+
+    const finalText = translatedText.trim();
+    console.log("Translated text:", finalText);
+    return finalText;
+}
+
+// Kirikapalattakii tulun bekarkii
+function capitalize(s) {
+    return s.charAt(0).toUpperCase() + s.slice(1);
+}
 
 /* =========================================================
    ORDERING MAP (LINGOJAM-STYLE)
