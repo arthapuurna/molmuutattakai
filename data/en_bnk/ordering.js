@@ -1,4 +1,4 @@
-{
+export const orderingMap = {
 "{{verb}} {{negation}} {{aux}} {{prep}} {{det}} {{adj}} {{noun}}": "{{det}} {{adj}} {{noun}} {{prep}} {{verb}} {{negation}} {{aux}}",
 "{{verb}} {{negation}} {{aux}} {{prep}} {{poss}} {{noun}}": "{{poss}} {{noun}} {{prep}} {{verb}} {{negation}} {{aux}}",
 "{{verb}} {{negation}} {{prep}} {{adj}} {{noun}}": "{{adj}} {{noun}} {{prep}} {{verb}} {{negation}} {{aux}}",
@@ -161,4 +161,4 @@
 "{{numeral}} {{noun}}": "{{numeral}} {{noun}}",
 "{{adj}} {{noun}}": "{{adj}} {{noun}}",
 "{{nnumeral}} {{numeral}}": "{{nnumeral}} {{numeral}}"
-    }
+};
