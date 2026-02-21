@@ -124,22 +124,36 @@ async function loadLanguagePair(source, target) {
     const key = `${source}_${target}`;
     if (TranslationData[key]) return TranslationData[key];
 
-const base = `https://arthapuurna.github.io/molmuutattakai/data/${key}`;
+    // GitHub Pages paajina-de shuddha URL yutakai
+    const base = `https://arthapuurna.github.io/molmuutattakai/data/${key}`;
 
-const [words, phrases, ordering] = await Promise.all([
-    fetch(`${base}/words.json`).then(r => r.json()),
-    fetch(`${base}/phrases.json`).then(r => r.json()),
-    fetch(`${base}/ordering.json`).then(r => r.json())
-    ]);
+    try {
+        // kul fail-no "fetch" karkii samahe
+        const [wordsRes, phrasesRes, orderingRes] = await Promise.all([
+            fetch(`${base}/words.json`),
+            fetch(`${base}/phrases.json`),
+            fetch(`${base}/ordering.json`)
+        ]);
 
-    const data = {
-        words,
-        phrases,
-        orderingMap: ordering
-    };
+        // rankaneda-no tekijorkii
+        if (!wordsRes.ok || !phrasesRes.ok || !orderingRes.ok) {
+            throw new Error("One or more files could not be fetched");
+        }
 
-    TranslationData[key] = data;
-    return data;
+        const [words, phrases, ordering] = await Promise.all([
+            wordsRes.json(),
+            phrasesRes.json(),
+            orderingRes.json()
+        ]);
+
+        const data = { words, phrases, orderingMap: ordering };
+        TranslationData[key] = data;
+        return data;
+
+    } catch (e) {
+        console.error("Failed to fetch translation data:", e);
+        return null;
+    }
 }
 
 /* =========================================================
