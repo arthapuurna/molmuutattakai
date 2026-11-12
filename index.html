@@ -81,7 +81,7 @@ textarea {
 </header>  <div class="container">  
     <div class="controls">  
         <select id="sourceLang">  
-            <option value="bnk">Benakasemmemii</option>  
+            <option value="bnk">Benakii</option>  
             <option value="en" selected>English</option>  
             <option value="es">Spanish (Google API)</option>
             <option value="zh">Chinese (Google API)</option>
@@ -157,7 +157,7 @@ window.runTranslation = function() {
 const isAllowed = allowedPairs.some(pair => pair.source === source && pair.target === target);
 
 if(!isAllowed){
-    document.getElementById("outputText").value = "Only English/Hindi/Japanese → Benakasemmemii is available.";
+    document.getElementById("outputText").value = "Only English/Hindi/Japanese → Benakii is available.";
     return;
 }
 
@@ -190,7 +190,7 @@ async function runTranslation() {
     const target = targetLang.value;
 
     if (source === "es" || target === "es") {
-        outputText.value = "Google API – ita demo kitu-de non-kriyaapun.";
+        outputText.value = "Google API – ita demo kitu-de karsahin.";
         return;
     }
 
