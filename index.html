@@ -2,7 +2,7 @@
 <head>  
 <meta charset="UTF-8">  
 <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-<title>Benakasemmemii Translator 2026</title>  <style>  
+<title>Benakii Translator 2026</title>  <style>  
 :root { --primary: #2c3e50; --accent: #3498db; --bg: #f4f7f6; }  
 body {  
     font-family: 'Segoe UI', Tahoma, sans-serif;  
@@ -62,7 +62,7 @@ textarea {
 }  
 </style>  </head>  
 <body>  <header>  
-<h1>Benakasemmemii Translator</h1>  
+<h1>Benakii Translator</h1>  
 <p>Made in 2026</p>  
 
 <div class="beta-banner" style="
@@ -74,7 +74,7 @@ textarea {
     margin-bottom: 1rem;
     font-weight: bold;
 ">
-    Beta Version – Currently only English/Hindi/Japanese → Benakasemmemii is available.<br>
+    Beta Version – Currently only English/Hindi/Japanese → Benakii is available.<br>
     Other languages will be unlocked in the coming months. Stay tuned!
 </div>
 
@@ -96,7 +96,7 @@ textarea {
         </select>  <button onclick="swapLangs()">⇄</button>  
 
     <select id="targetLang">  
-        <option value="bnk">Benakasemmemii</option>  
+        <option value="bnk">Benakii</option>  
     </select>  
 </div>  
 
@@ -137,7 +137,7 @@ function loadLanguagePair(source, target) {
     if(source === "ja" && target === "bnk") return data_jp_bnk;
     if(source === "hi" && target === "bnk") return data_hi_bnk;
 
-    // anya bhaasaas-ke, gaal tekidu tirumdii thaare
+    // lawin mols-ke, hala tekidu tirumdaada thaare
     return { words: {}, phrases: {}, orderingMap: {} };
 }
 
@@ -199,7 +199,7 @@ outputText.value = internalBenTranslate(text, target, source, data);
  }
 
 /* =========================================================
-   MOLMUUTATTAKIITUGATTAKAI
+   MOLMUUTATTAKITUGATTAKAI
 ========================================================= */
 
 
@@ -207,7 +207,7 @@ outputText.value = internalBenTranslate(text, target, source, data);
 function internalBenTranslate(text, target, source, data) {
     if (!data || !data.words) return text;
 
-    // Japanii / Hindii – onhii regex kitu bekartadare
+    // Japanii / Hindii – onhii regex kitu bekardare
     if(source === "ja" || source === "hi") {
         let translated = text;
         Object.entries(data.words).forEach(([pattern, trg]) => {
@@ -283,7 +283,7 @@ function applyOrderingMap(tokens, orderingMap) {
                 const window = tokens.slice(i, i + srcTags.length);
                 const windowTags = window.map(extractTag);
 
-                // TAGUS-NO TULANAA
+                // TAGUS-NO TEMMETAKI
                 let match = true;
                 for (let j = 0; j < srcTags.length; j++) {
                     if (windowTags[j] !== srcTags[j]) {
@@ -293,7 +293,7 @@ function applyOrderingMap(tokens, orderingMap) {
                 }
                 if (!match) continue;
 
-                // REORDER — kukkun ONTII TOUKENS-ONG bekarre
+                // REORDER — kukkun ONTII TOUKENS-MO bekarre
                 const reordered = tgtTags.map(tag =>
                     window[windowTags.indexOf(tag)]
                 );
@@ -311,14 +311,14 @@ function applyOrderingMap(tokens, orderingMap) {
 }
 
 /* =========================================================
-   HELPERS
+   TULUNKAIS
 ========================================================= */
 
 function capitalize(s) {
   return s.charAt(0).toUpperCase() + s.slice(1);
 }
 
-/*==JORKII-NO BHAASAA==*/
+/*==JORKI-NO MOL==*/
 
 let UI = {};
 const supportedLangs = [
