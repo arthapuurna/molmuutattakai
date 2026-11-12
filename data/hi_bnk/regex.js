@@ -2,7 +2,7 @@ export const words = {
   "मैं/g": "men",
   "हिंदी/g": "Hindii-ong",
   "बोलता हूँ/g": "molre",
-  "।": "."
+  "।/g": "."
 };
 export const phrases = {};
 export const orderingMap = {}; // nonbekarda
